@@ -1,3 +1,7 @@
 .DS_Store
 .ipynb_checkpoints
 saved_models
+data/train
+data/validation
+data/test
+__pycache__
