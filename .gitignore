@@ -5,3 +5,4 @@ data/train
 data/validation
 data/test
 __pycache__
+*.pages
