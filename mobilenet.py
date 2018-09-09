@@ -49,15 +49,14 @@ def train(batch, epochs, num_classes, size, weights, train_tensors, train_target
     if weights:
         model = MobileNetv2((size, size, 3), num_classes)
         model = fine_tune(model)
+        model.compile(loss='categorical_crossentropy', optimizer=Adam(lr=1e-5), metrics=['accuracy'])
     else:
         model = MobileNetv2((size, size, 3), num_classes)
+        model.compile(loss='categorical_crossentropy', optimizer=Adam(), metrics=['accuracy'])
 
-    opt = Adam()
     earlystop = EarlyStopping(monitor='val_loss', patience=15, verbose=0, mode='auto')
     checkpointer = ModelCheckpoint(filepath='saved_models/weights.best.mbnetv2.hdf5', 
                                 verbose=1, save_best_only=True)
-
-    model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy'])
 
     hist = model.fit(train_tensors, train_targets,
             validation_data=(valid_tensors, valid_targets),
